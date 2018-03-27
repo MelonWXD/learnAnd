@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.dongua.interview.touchevent.view.ViewGroupA
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="#1ff4f5">
+
+        <com.dongua.interview.touchevent.view.ViewB
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#aaff0000" />
+
+        <com.dongua.interview.touchevent.view.ViewC
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#aaff0000" />
+
+    </com.dongua.interview.touchevent.view.ViewGroupA>
+
+</RelativeLayout>

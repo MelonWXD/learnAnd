@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dongua.interview">
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/app"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".touchevent.TouchActivity"/>
+        <activity android:name=".animate.AnimActivity"/>
+        <activity android:name=".act2service.CommunicateActivity"/>
+        <activity android:name=".actlaunch.FirstActivity" android:launchMode="singleInstance"/>
+        <activity android:name=".actlaunch.SecondActivity"/>
+        <service android:name=".act2service.TestService" android:process=":remote"/>
+        <activity android:name=".eventbus3.EventBusActivity"/>
+        <activity android:name=".eventbus3.BusTestActivity"/>
+        <activity android:name=".notification.NotificationActivity"/>
+        <!--<receiver android:name=".act2service.LocalBroadcastRcv">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="myaction"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+    </application>
+
+</manifest>
