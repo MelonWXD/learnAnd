@@ -48,7 +48,7 @@ public class NotificationActivity extends BaseActivity {
         data_list.add("普通样式");
         data_list.add("下载进度");
         data_list.add("点击后展开");
-        data_list.add("深圳");
+        data_list.add("点击后展开2");
 
         //适配器
         arr_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data_list);
@@ -83,6 +83,7 @@ public class NotificationActivity extends BaseActivity {
                 sendBigText();
                 break;
             case 3:
+                sendBoxText();
                 break;
             default:
                 ;
@@ -98,6 +99,28 @@ public class NotificationActivity extends BaseActivity {
 //            default:
 //                break;
 //        }
+    }
+
+    private void sendBoxText() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setContentTitle("InboxStyle");
+        builder.setContentText("InboxStyle演示示例");
+        builder.setSmallIcon(R.drawable.notify_small);
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notify_big));
+        android.support.v4.app.NotificationCompat.InboxStyle style = new android.support.v4.app.NotificationCompat.InboxStyle();
+        style.setBigContentTitle("BigContentTitle")
+                .addLine("第一行，第一行，第一行，第一行，第一行，第一行，第一行")
+                .addLine("第二行")
+                .addLine("第三行")
+                .addLine("第四行")
+                .addLine("第五行")
+                .setSummaryText("SummaryText");
+        builder.setStyle(style);
+        builder.setAutoCancel(true);
+
+        builder.setDefaults(NotificationCompat.DEFAULT_ALL);
+        Notification notification = builder.build();
+        manager.notify(4,notification);
     }
 
     private void sendBigText(){
