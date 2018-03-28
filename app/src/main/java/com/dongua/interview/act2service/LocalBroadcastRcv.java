@@ -10,7 +10,7 @@ import com.elvishew.xlog.XLog;
 
 /**
  * author: Lewis
- * data: On 18-2-28.
+ * date: On 18-2-28.
  */
 
 public class LocalBroadcastRcv extends BroadcastReceiver {

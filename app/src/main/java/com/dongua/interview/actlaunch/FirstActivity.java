@@ -12,7 +12,7 @@ import butterknife.OnClick;
 
 /**
  * author: Lewis
- * data: On 18-3-5.
+ * date: On 18-3-5.
  */
 
 public class FirstActivity extends BaseActivity {

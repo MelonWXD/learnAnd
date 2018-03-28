@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 
 /**
  * author: Lewis
- * data: On 18-3-27.
+ * date: On 18-3-27.
  */
 
 class DownloadService extends Service {

@@ -2,7 +2,7 @@ package com.dongua.interview.eventbus3;
 
 /**
  * author: Lewis
- * data: On 18-3-12.
+ * date: On 18-3-12.
  */
 
 public class MyEvent {

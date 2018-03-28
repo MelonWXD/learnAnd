@@ -10,7 +10,7 @@ import com.dongua.interview.R;
 
 /**
  * author: Lewis
- * data: On 18-2-23.
+ * date: On 18-2-23.
  */
 
 public class TouchActivity extends AppCompatActivity {

@@ -20,7 +20,7 @@ import butterknife.OnClick;
 
 /**
  * author: Lewis
- * data: On 18-3-12.
+ * date: On 18-3-12.
  */
 
 public class EventBusActivity extends BaseActivity {

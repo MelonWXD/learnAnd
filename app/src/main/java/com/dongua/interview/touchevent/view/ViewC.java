@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 
 /**
  * author: Lewis
- * data: On 18-2-23.
+ * date: On 18-2-23.
  */
 
 public class ViewC extends android.support.v7.widget.AppCompatTextView {

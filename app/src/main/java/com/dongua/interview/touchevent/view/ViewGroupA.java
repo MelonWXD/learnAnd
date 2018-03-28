@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 
 /**
  * author: Lewis
- * data: On 18-2-23.
+ * date: On 18-2-23.
  */
 public class ViewGroupA extends RelativeLayout {
 

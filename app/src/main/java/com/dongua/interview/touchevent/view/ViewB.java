@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 /**
  * author: Lewis
- * data: On 18-2-23.
+ * date: On 18-2-23.
  */
 
 public class ViewB extends android.support.v7.widget.AppCompatTextView {

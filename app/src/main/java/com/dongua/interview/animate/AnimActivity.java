@@ -17,7 +17,7 @@ import butterknife.OnClick;
 
 /**
  * author: Lewis
- * data: On 18-2-24.
+ * date: On 18-2-24.
  */
 
 public class AnimActivity extends BaseActivity {

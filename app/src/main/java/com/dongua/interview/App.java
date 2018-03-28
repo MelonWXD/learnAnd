@@ -28,7 +28,7 @@ import dalvik.system.DexClassLoader;
 
 /**
  * author: Lewis
- * data: On 18-2-23.
+ * date: On 18-2-23.
  */
 
 public class App extends Application {

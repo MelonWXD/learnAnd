@@ -10,7 +10,7 @@ import com.elvishew.xlog.XLog;
 
 /**
  * author: Lewis
- * data: On 18-2-27.
+ * date: On 18-2-27.
  */
 
 public class TestService extends Service {
