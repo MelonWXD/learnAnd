@@ -1,53 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:columnCount="3"
-    android:padding="10dp"
-    tools:context="com.dongua.interview.MainActivity">
-
-    <Button
-        android:id="@+id/btn_touch"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="事件传递机制" />
+    android:layout_height="match_parent">
 
 
-    <Button
-        android:id="@+id/btn_anim"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="动画学习" />
+    <GridLayout
+        android:id="@+id/gl_op"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:padding="10dp"
+        tools:context="com.dongua.interview.MainActivity">
 
-    <Button
-        android:id="@+id/btn_service"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="act和svc交互" />
+        <Button
+            android:id="@+id/btn_touch"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="事件传递机制" />
 
-    <Button
-        android:id="@+id/btn_act"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="act启动模式" />
 
-    <Button
-        android:id="@+id/btn_dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="Ctx和dialog" />
+        <Button
+            android:id="@+id/btn_anim"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="动画学习" />
 
-    <Button
-        android:id="@+id/btn_eventbus"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="Eventbus" />
+        <Button
+            android:id="@+id/btn_service"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="act和svc交互" />
 
-    <Button
-        android:id="@+id/btn_notify"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="Notify" />
-</GridLayout>
+        <Button
+            android:id="@+id/btn_act"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="act启动模式" />
+
+        <Button
+            android:id="@+id/btn_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Ctx和dialog" />
+
+        <Button
+            android:id="@+id/btn_eventbus"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Eventbus" />
+
+        <Button
+            android:id="@+id/btn_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Notify" />
+    </GridLayout>
+
+    <ImageView
+        android:id="@+id/iv_loadfile"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/gl_op"/>
+</RelativeLayout>

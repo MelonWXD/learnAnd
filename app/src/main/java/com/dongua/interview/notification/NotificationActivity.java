@@ -1,14 +1,23 @@
 package com.dongua.interview.notification;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.RemoteInput;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.dongua.interview.BaseActivity;
@@ -35,6 +44,9 @@ public class NotificationActivity extends BaseActivity {
     ArrayList<String> data_list;
     ArrayAdapter arr_adapter;
 
+
+    @BindView(R.id.iv_hold)
+    ImageView holdIv;
     private int CUR_TYPE = 0;
 
     @Override
@@ -45,8 +57,8 @@ public class NotificationActivity extends BaseActivity {
 
         //数据
         data_list = new ArrayList<String>();
-        data_list.add("普通样式");
-        data_list.add("下载进度");
+        data_list.add("快速回复");
+        data_list.add("从sd中");
         data_list.add("点击后展开");
         data_list.add("点击后展开2");
 
@@ -70,20 +82,28 @@ public class NotificationActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.btn_sys_notify })
+    @OnClick({R.id.btn_sys_notify})
     public void OnClick(View view) {
         switch (CUR_TYPE) {
             case 0:
-                sendNormal();
+//                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.tes);
+//                Bitmap b2 = handleBitmap(bitmap.copy(Bitmap.Config.ARGB_8888, true));
+//                holdIv.setBackground(new BitmapDrawable(b2));
+//                send/*/*/**/*/*/Replay():/**/
+                addNotification();
                 break;
             case 1:
-                sendProgress();
+                Bitmap bitmap2 = BitmapFactory.decodeFile("/storage/emulated/0/temp/tes.png");
+                sendNormal(bitmap2);
+//                sendProgress();
                 break;
             case 2:
-                sendBigText();
+                Bitmap bitmap3 = BitmapFactory.decodeResource(getResources(), R.drawable.tes2);
+                sendNormal(bitmap3);
                 break;
             case 3:
-                sendBoxText();
+                Bitmap bitmap4 = BitmapFactory.decodeFile("/storage/emulated/0/temp/tes2.png");
+                sendNormal(bitmap4);
                 break;
             default:
                 ;
@@ -99,6 +119,16 @@ public class NotificationActivity extends BaseActivity {
 //            default:
 //                break;
 //        }
+    }
+
+    private Bitmap handleBitmap(Bitmap bitmap) {
+        Canvas c = new Canvas(bitmap);
+        Rect bounds = new Rect(0, 0, bitmap.getWidth() - 10, bitmap.getHeight() - 10);
+        Paint p = new Paint();
+        p.setStrokeWidth(20);
+        p.setStyle(Paint.Style.STROKE);
+        c.drawRect(bounds, p);
+        return bitmap;
     }
 
     private void sendBoxText() {
@@ -120,10 +150,44 @@ public class NotificationActivity extends BaseActivity {
 
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);
         Notification notification = builder.build();
-        manager.notify(4,notification);
+        manager.notify(4, notification);
+    }
+    @SuppressLint("NewApi")
+    private void addNotification() {
+
+        String replyLabel = "replyLabel";
+        //创建一个远程输入（既：通知栏的快捷回复）
+        RemoteInput remoteInput = new RemoteInput.Builder("key_text_reply")
+                .setLabel(replyLabel)
+                .build();
+
+        //点击快速回复中发送按钮的时候，会发送一个广播给GetMessageReceiver
+        Intent intent = new Intent();
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        //创建快速回复的动作，并添加remoteInut
+         Notification.Action replyAction = new Notification.Action.Builder(
+                R.drawable.leak_canary_icon,
+                 "lableString",pendingIntent)
+                .addRemoteInput(remoteInput)
+                .build();
+
+        //创建一个Notification，并设置title，content，icon等内容
+        Notification newMessageNotification = new Notification.Builder(this)
+                .setSmallIcon(R.drawable.notify_small)
+                .setContentTitle("title")
+                .setContentText("ContentText")
+                .addAction(replyAction)
+                .build();
+
+        //发出通知
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(1, newMessageNotification);
     }
 
-    private void sendBigText(){
+    private void sendBigText() {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle("点击展开 title");
@@ -142,7 +206,7 @@ public class NotificationActivity extends BaseActivity {
 
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);
         Notification notification = builder.build();
-        manager.notify(3,notification);
+        manager.notify(3, notification);
     }
 
     private void sendProgress() {
@@ -197,7 +261,7 @@ public class NotificationActivity extends BaseActivity {
         }).start();
     }
 
-    private void sendNormal() {
+    private void sendNormal(Bitmap src) {
         //为了版本兼容  选择V7包下的NotificationCompat进行构造
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "c-id");
         //Ticker是状态栏显示的提示
@@ -218,7 +282,8 @@ public class NotificationActivity extends BaseActivity {
         //系统状态栏显示的小图标
         builder.setSmallIcon(R.drawable.notify_small);
         //下拉显示的大图标
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notify_big));
+        //BitmapFactory.decodeResource(getResources(), R.drawable.small_head)
+        builder.setLargeIcon(src);
 //        Intent intent = new Intent(this,SettingsActivity.class);
 //        PendingIntent pIntent = PendingIntent.getActivity(this,1,intent,0);
         //点击跳转的intent

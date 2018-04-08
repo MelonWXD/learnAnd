@@ -11,7 +11,9 @@ import android.util.ArraySet;
 import android.util.Log;
 import android.util.LruCache;
 import android.util.SparseArray;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.elvishew.xlog.LogConfiguration;
 import com.elvishew.xlog.LogLevel;
 import com.elvishew.xlog.XLog;
@@ -46,13 +48,7 @@ public class App extends Application {
 
         appContext = getApplicationContext();
 //        LeakCanary.install(this);
-        LruCache<String,Bitmap> bitmapLruCache = new LruCache<String,Bitmap>((int)Runtime.getRuntime().maxMemory()/1024){
-            @Override
-            protected int sizeOf(String key, Bitmap value) {
-                return super.sizeOf(key, value);
-            }
-        };
-
+        Glide.with(this).load("").into(new ImageView(this));
 
     }
 

@@ -1,10 +1,14 @@
 package com.dongua.interview;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,10 +17,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.dongua.interview.act2service.CommunicateActivity;
 import com.dongua.interview.actlaunch.FirstActivity;
@@ -42,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     Unbinder unbinder;
 
-
+    @BindView(R.id.iv_loadfile)
+    ImageView loadImg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -50,8 +57,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
 
-         
+        String[] per = new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+//        requestPermissions(per,0);
+//        Bitmap b1 = BitmapFactory.decodeFile("/storage/emulated/0/temp/tes2.png");
+//        Bitmap b2 = BitmapFactory.decodeResource(getResources(),R.drawable.tes2);
+//        Log.i("a", "onCreate: ");
     }
+
+
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

@@ -7,10 +7,10 @@
 
 
     <Spinner
-        android:paddingLeft="20dp"
         android:id="@+id/sp_type"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:paddingLeft="20dp">
 
     </Spinner>
 
@@ -21,6 +21,11 @@
         android:layout_below="@+id/sp_type"
         android:text="send" />
 
-
+    <ImageView
+        android:id="@+id/iv_hold"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/btn_sys_notify"
+        android:scaleType="center" />
 
 </RelativeLayout>
