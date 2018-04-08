@@ -8,6 +8,8 @@ import android.util.LruCache;
 
 import com.elvishew.xlog.XLog;
 
+import static com.dongua.interview.act2service.CommunicateActivity.BROADCAST_EXTRA_KEY;
+
 /**
  * author: Lewis
  * date: On 18-2-28.
@@ -20,8 +22,8 @@ public class LocalBroadcastRcv extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        XLog.i("asdasda");
-        XLog.i(intent.getIntExtra("key",2)+"");
+        XLog.i("onReceive :"+Thread.currentThread().getName());
+        XLog.i(intent.getIntExtra(BROADCAST_EXTRA_KEY,2)+"");
     }
 
     @Override

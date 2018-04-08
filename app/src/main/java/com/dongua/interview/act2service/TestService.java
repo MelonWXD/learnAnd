@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.elvishew.xlog.XLog;
+
+import static com.dongua.interview.act2service.CommunicateActivity.BROADCAST_ACTION;
+import static com.dongua.interview.act2service.CommunicateActivity.BROADCAST_EXTRA_KEY;
 
 /**
  * author: Lewis
@@ -47,9 +51,31 @@ public class TestService extends Service {
         task.start();
     }
 
+    public void sendLocalBroadcast() {
+        XLog.i("sendLocalBroadcast");
+        Intent intent2 = new Intent();
+        intent2.setAction(BROADCAST_ACTION);
+        intent2.putExtra(BROADCAST_EXTRA_KEY, 123);
+//        sendBroadcast(intent2);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent2);
+    }
+
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        sendLocalBroadcast();
+        return super.onStartCommand(intent, flags, startId);
+    }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        try {
+            sendLocalBroadcast();
+
+        }catch (Exception e){
+            XLog.e(e);
+        }
         return new TestBinder();
     }
 

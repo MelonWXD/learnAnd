@@ -30,7 +30,8 @@ public class CommunicateActivity extends BaseActivity {
 
     public static final String BROADCAST_NAME = "myaction";
     public static final String BROADCAST_KEY = "key";
-
+    public static final String BROADCAST_ACTION = "jeson.broadcast";
+    public static final String BROADCAST_EXTRA_KEY = "message";
     LocalBroadcastManager localBroadcastManager;
     //    LocalBroadcastRcv broadcastReceiver;
     @BindView(R.id.tv_progress)
@@ -48,8 +49,8 @@ public class CommunicateActivity extends BaseActivity {
                 Intent intent2 = new Intent();
                 intent2.setAction(BROADCAST_ACTION);
                 intent2.putExtra(BROADCAST_EXTRA_KEY, 123);
-                sendBroadcast(intent2);
-//                LocalBroadcastManager.getInstance(this).sendBroadcast(intent2);
+//                sendBroadcast(intent2);
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intent2);
                 break;
             default:
                 break;
@@ -60,22 +61,23 @@ public class CommunicateActivity extends BaseActivity {
     ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            XLog.i(Thread.currentThread().getId());
-            mService = ((TestService.TestBinder) service).getService();
-            mService.setListener(new OnProgressListener() {
-                @Override
-                public void onUpdate(final int val) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            XLog.i(Thread.currentThread().getId());
-
-                            progressTv.setText(val + "");
-                        }
-                    });
-                }
-            });
-            mService.startDownLoad();
+            XLog.i("onServiceConnected");
+//            mService = ((TestService.TestBinder) service).getService();
+//            mService.setListener(new OnProgressListener() {
+//                @Override
+//                public void onUpdate(final int val) {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            XLog.i(Thread.currentThread().getId());
+//
+//                            progressTv.setText(val + "");
+//                        }
+//                    });
+//                }
+//            });
+//            mService.startDownLoad();
+//            mService.sendLocalBroadcast();
 
         }
 
@@ -92,36 +94,23 @@ public class CommunicateActivity extends BaseActivity {
 
     @Override
     public void init() {
-//        localBroadcastManager = LocalBroadcastManager.getInstance(this);
 
-//        broadcastReceiver = new LocalBroadcastRcv();
-//        IntentFilter intentFilter = new IntentFilter();
-//        localBroadcastManager.registerReceiver(broadcastReceiver, intentFilter);
         registerLocalBroadcast();
-
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(BROADCAST_ACTION);
+//        registerReceiver(new LocalBroadcastRcv(),intentFilter);
     }
-
-    public static final String BROADCAST_ACTION = "jeson.broadcast";
-    public static final String BROADCAST_EXTRA_KEY = "message";
-
-    //定义 广播接收器
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int count = intent.getExtras().getInt(BROADCAST_EXTRA_KEY);
-
-            XLog.i("接收到的count：" + count);
-
-        }
-    };
 
     //注册广播
     private void registerLocalBroadcast() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BROADCAST_ACTION);
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter);
+        LocalBroadcastManager.getInstance(this).registerReceiver(new LocalBroadcastRcv(), intentFilter);
 
     }
+
+
+
 
 
     @Override
