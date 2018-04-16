@@ -34,11 +34,15 @@ import com.dongua.interview.touchevent.TouchActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import butterknife.Unbinder;
 
 public class MainActivity extends AppCompatActivity {
@@ -128,9 +132,10 @@ public class MainActivity extends AppCompatActivity {
             unbinder.unbind();
     }
 
+
     @OnClick({R.id.btn_touch, R.id.btn_anim, R.id.btn_service
             , R.id.btn_act, R.id.btn_dialog, R.id.btn_eventbus
-            , R.id.btn_notify})
+            , R.id.btn_notify,R.id.btn_thread})
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_touch:
@@ -159,6 +164,26 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.btn_notify:
                 startActivity(NotificationActivity.class);
+            case R.id.btn_thread:
+                final ThreadPoolExecutor executor = new ThreadPoolExecutor(30,30,2, TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>());
+                for(int i=0;i<30;i++)
+                    executor.submit(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    });
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(5*1000);
+                            executor.shutdown();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
             default:
                 break;
         }
