@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -30,6 +31,7 @@ import com.dongua.interview.animate.AnimActivity;
 import com.dongua.interview.eventbus3.EventBusActivity;
 import com.dongua.interview.notification.NotificationActivity;
 import com.dongua.interview.touchevent.TouchActivity;
+import com.dongua.interview.webviewlearn.WebViewActivity;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
 
+           int a = Build.VERSION_CODES.O_MR1;
         String[] per = new String[]{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
@@ -135,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.btn_touch, R.id.btn_anim, R.id.btn_service
             , R.id.btn_act, R.id.btn_dialog, R.id.btn_eventbus
-            , R.id.btn_notify,R.id.btn_thread})
+            , R.id.btn_notify,R.id.btn_thread,R.id.btn_webview})
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_touch:
@@ -184,6 +187,9 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }).start();
+            case R.id.btn_webview:
+                startActivity(WebViewActivity.class);
+
             default:
                 break;
         }
