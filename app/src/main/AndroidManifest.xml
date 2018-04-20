@@ -31,6 +31,7 @@
         <activity android:name=".eventbus3.EventBusActivity"/>
         <activity android:name=".eventbus3.BusTestActivity"/>
         <activity android:name=".notification.NotificationActivity"/>
+        <activity android:name=".webviewlearn.WebViewActivity"/>
         <!--<receiver android:name=".act2service.LocalBroadcastRcv">-->
             <!--<intent-filter>-->
                 <!--<action android:name="myaction"/>-->
