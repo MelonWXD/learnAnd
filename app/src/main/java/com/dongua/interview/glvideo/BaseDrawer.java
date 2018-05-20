@@ -12,10 +12,11 @@ public abstract class BaseDrawer {
     public static final int VERTEX_DATA_PER_POINT = 3 * FLOAT_SIZE_BYTES;
     //顶点之间的数据差 rgba是4个 xyz坐标系3个  uv坐标系2个
     public static final int SIZE_RGBA = 4;
+    public static final int SIZE_XY = 2;
     public static final int SIZE_XYZ = 3;
     public static final int SIZE_UV = 2;
     //顶点的数量 正方形4个顶点
-    public static final int VERTEX_NUM = 4;
+    public static final int VERTEX_NUM_RECT = 4;
 
     public int mProgram;
 

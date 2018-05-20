@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.dongua.interview.glvideo.video.VideoGLSurfaceView
+    <com.dongua.interview.glvideo.baseuse.NormalGLSurfaceView
         android:id="@+id/gl_video"
         android:layout_width="300dp"
         android:layout_height="420dp" />

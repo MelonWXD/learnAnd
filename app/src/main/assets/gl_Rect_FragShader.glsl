@@ -1,9 +1,10 @@
 #extension GL_OES_EGL_image_external : require
 //精度设置
 precision mediump float;
-//输出的纹理坐标
-varying vec2 vTextureCoord;
+//vertex输出的纹理坐标
+//varying vec2 vTextureCoord;
+uniform vec4 uColor;
 void main() 
 {
-  gl_FragColor = texture2D(sTexture, vTextureCoord);
+  gl_FragColor = uColor;
 }

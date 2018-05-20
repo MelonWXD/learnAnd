@@ -7,6 +7,7 @@ import butterknife.BindView;
 
 import com.dongua.interview.BaseActivity;
 import com.dongua.interview.R;
+import com.dongua.interview.glvideo.baseuse.NormalGLSurfaceView;
 import com.dongua.interview.glvideo.video.VideoGLSurfaceView;
 
 /**
@@ -18,7 +19,7 @@ public class VideoActivity extends BaseActivity {
 //    VideoGLSurfaceView glSurfaceView;
 
     @BindView(R.id.gl_video)
-    GLSurfaceView glSurfaceView;
+    NormalGLSurfaceView glSurfaceView;
 
     String videoPath = "/storage/emulated/0/DCIM/Camera/VID_20180514_163229.mp4";
     String video_url = Environment.getExternalStorageDirectory() + "/video/t4.mp4";
@@ -30,7 +31,7 @@ public class VideoActivity extends BaseActivity {
 
     @Override
     public void init() {
-
+        glSurfaceView.init(this);
 //        glSurfaceView.init(this, videoPath);
     }
 
