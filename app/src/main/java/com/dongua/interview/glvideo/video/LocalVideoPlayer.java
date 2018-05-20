@@ -5,7 +5,10 @@ import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.util.Log;
+
+import com.dongua.interview.glvideo.BaseDrawer;
 import com.dongua.interview.glvideo.ShaderUtil;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -13,20 +16,10 @@ import java.nio.FloatBuffer;
 /**
  * Created by lewis on 2018/5/12.
  */
-public class LocalVideoPlayer {
+public class LocalVideoPlayer extends BaseDrawer {
 
     private static final String TAG = "LocalVideoPlayer";
 
-    //float占用的字节数
-    public static final int FLOAT_SIZE_BYTES = 4;
-    //每个顶点占用的字节数
-    public static final int VERTEX_DATA_PER_POINT = 3 * FLOAT_SIZE_BYTES;
-    //顶点之间的数据差 rgba是4个 xyz坐标系3个  uv坐标系2个
-    public static final int SIZE_RGBA = 4;
-    public static final int SIZE_XYZ = 3;
-    public static final int SIZE_UV = 2;
-    //顶点的数量 正方形4个顶点
-    public static final int VERTEX_NUM = 4;
 
     ////顶点的XYZ坐标数据
     //private float[] mVertexData = {
@@ -48,20 +41,19 @@ public class LocalVideoPlayer {
     //};
     //顶点的XYZ坐标数据
     private float[] mVertexData = {
-        // X,    Y,     Z,
-        -1.0f,  -1.0f,  0,
-        1.0f,  -1.0f,  0,
-        0f,	 1.0f,  0,
+            // X,    Y,     Z,
+            -1.0f, -1.0f, 0,
+            1.0f, -1.0f, 0,
+            0f, 1.0f, 0,
     };
 
     //纹理的UV坐标数据
     private float[] mTexCoorData = {
-        0.0f, 0.0f,
-        1.0f,0.0f,
-        0.0f, 1.0f
+            0.0f, 0.0f,
+            1.0f, 0.0f,
+            0.0f, 1.0f
 
     };
-    private int mProgram;
 
     private int mTextureID;
 
@@ -88,16 +80,17 @@ public class LocalVideoPlayer {
     }
 
     private LocalVideoPlayer(Context context) {
-        initBuffer();
+        initData();
         initShader(context);
     }
 
 
-    public int getTextureID(){
+    public int getTextureID() {
         return mTextureID;
     }
 
-    private void initBuffer() {
+    @Override
+    public void initData() {
         //初始化顶点数据buffer
         ByteBuffer vbb = ByteBuffer.allocateDirect(mVertexData.length * FLOAT_SIZE_BYTES);
         vbb.order(ByteOrder.nativeOrder());//设置字节顺序
@@ -112,21 +105,23 @@ public class LocalVideoPlayer {
         mTexCoorBuffer.position(0);
     }
 
+    @Override
     public void initShader(Context context) {
         //此处加载的渲染器为texture2D 为视频播放准备的
         mProgram = ShaderUtil.createProgram(ShaderUtil.loadFromAssetsFile("gl_VertexShader.sh", context),
-                                            ShaderUtil.loadFromAssetsFile("gl_Texture_FragShader.sh", context));
+                ShaderUtil.loadFromAssetsFile("gl_Texture_FragShader.sh", context));
         if (mProgram == 0) {
             Log.e(TAG, "initShader: mProgram==0  return");
         }
 
         maPositionHandle = GLES20.glGetAttribLocation(mProgram, "aPosition");
-        maTexCoorHandle = GLES20.glGetAttribLocation(mProgram,"aTexCoor");
-        muMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram,"uMVPMatrix");
+        maTexCoorHandle = GLES20.glGetAttribLocation(mProgram, "aTexCoor");
+        muMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
 
 
     }
 
+    @Override
     public void draw() {
         GLES20.glUseProgram(mProgram);
 
@@ -135,10 +130,10 @@ public class LocalVideoPlayer {
         GLES20.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, mTextureID);
 
         //准备坐标数据 告诉openGL 数据的各种信息方便后续正确对应到每个位上
-        GLES20.glVertexAttribPointer(maPositionHandle,SIZE_XYZ,GLES20.GL_FLOAT,false,SIZE_XYZ*FLOAT_SIZE_BYTES,mVertexBuffer);
+        GLES20.glVertexAttribPointer(maPositionHandle, SIZE_XYZ, GLES20.GL_FLOAT, false, SIZE_XYZ * FLOAT_SIZE_BYTES, mVertexBuffer);
         GLES20.glEnableVertexAttribArray(maPositionHandle);
 
-        GLES20.glVertexAttribPointer(maTexCoorHandle,SIZE_UV,GLES20.GL_FLOAT,false,SIZE_UV*FLOAT_SIZE_BYTES,mTexCoorBuffer);
+        GLES20.glVertexAttribPointer(maTexCoorHandle, SIZE_UV, GLES20.GL_FLOAT, false, SIZE_UV * FLOAT_SIZE_BYTES, mTexCoorBuffer);
         GLES20.glEnableVertexAttribArray(maTexCoorHandle);
 
 
@@ -160,9 +155,9 @@ public class LocalVideoPlayer {
          指明一个指向count个元素的指针，用来更新指定的uniform变量。
 
          */
-        GLES20.glUniformMatrix4fv(muMVPMatrixHandle, 1, false, mMVPMatrix,0);
+        GLES20.glUniformMatrix4fv(muMVPMatrixHandle, 1, false, mMVPMatrix, 0);
 
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP,0,VERTEX_NUM);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, VERTEX_NUM);
 
 
     }

@@ -1,7 +1,10 @@
 package com.dongua.interview.glvideo;
 
+import android.opengl.GLSurfaceView;
 import android.os.Environment;
+
 import butterknife.BindView;
+
 import com.dongua.interview.BaseActivity;
 import com.dongua.interview.R;
 import com.dongua.interview.glvideo.video.VideoGLSurfaceView;
@@ -11,12 +14,15 @@ import com.dongua.interview.glvideo.video.VideoGLSurfaceView;
  */
 public class VideoActivity extends BaseActivity {
 
-    @BindView(R.id.gl_video)
-    VideoGLSurfaceView glSurfaceView;
+    //    @BindView(R.id.gl_video)
+//    VideoGLSurfaceView glSurfaceView;
 
+    @BindView(R.id.gl_video)
+    GLSurfaceView glSurfaceView;
 
     String videoPath = "/storage/emulated/0/DCIM/Camera/VID_20180514_163229.mp4";
     String video_url = Environment.getExternalStorageDirectory() + "/video/t4.mp4";
+
     @Override
     public int getLayoutID() {
         return R.layout.activity_video;
@@ -25,7 +31,7 @@ public class VideoActivity extends BaseActivity {
     @Override
     public void init() {
 
-        glSurfaceView.init(this,videoPath);
+//        glSurfaceView.init(this, videoPath);
     }
 
 
