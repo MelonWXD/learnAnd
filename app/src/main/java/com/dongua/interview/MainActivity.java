@@ -1,51 +1,32 @@
 package com.dongua.interview;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.dongua.interview.act2service.CommunicateActivity;
 import com.dongua.interview.actlaunch.FirstActivity;
 import com.dongua.interview.animate.AnimActivity;
 import com.dongua.interview.eventbus3.EventBusActivity;
+import com.dongua.interview.glvideo.VideoActivity;
 import com.dongua.interview.notification.NotificationActivity;
 import com.dongua.interview.touchevent.TouchActivity;
 import com.dongua.interview.webviewlearn.WebViewActivity;
-
-
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnLongClick;
-import butterknife.Unbinder;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn_touch)
@@ -78,35 +59,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-         
+
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-         
+
 
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-         
+
 
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-         
+
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-         
+
 
 
     }
@@ -114,14 +95,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-         
+
 
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-         
+
         outState.putInt("1", 1);
 
     }
@@ -129,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-         
+
         super.onDestroy();
         if (unbinder != null)
             unbinder.unbind();
@@ -138,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.btn_touch, R.id.btn_anim, R.id.btn_service
             , R.id.btn_act, R.id.btn_dialog, R.id.btn_eventbus
-            , R.id.btn_notify,R.id.btn_thread,R.id.btn_webview})
+            , R.id.btn_notify,R.id.btn_thread,R.id.btn_webview
+            ,R.id.btn_video})
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_touch:
@@ -189,7 +171,9 @@ public class MainActivity extends AppCompatActivity {
                 }).start();
             case R.id.btn_webview:
                 startActivity(WebViewActivity.class);
-
+                break;
+            case R.id.btn_video:
+                startActivity(VideoActivity.class);
             default:
                 break;
         }
