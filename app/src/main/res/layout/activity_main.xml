@@ -72,6 +72,11 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="video" />
+        <Button
+            android:id="@+id/btn_pano"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="krpano" />
     </GridLayout>
 
     <ImageView

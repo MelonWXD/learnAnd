@@ -34,6 +34,7 @@
         <activity android:name=".notification.NotificationActivity"/>
         <activity android:name=".webviewlearn.WebViewActivity"/>
         <activity android:name=".glvideo.VideoActivity"/>
+        <activity android:name=".krpano.PanoActivity"/>
         <!--<receiver android:name=".act2service.LocalBroadcastRcv">-->
             <!--<intent-filter>-->
                 <!--<action android:name="myaction"/>-->

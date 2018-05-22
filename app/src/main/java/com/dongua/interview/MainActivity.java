@@ -12,18 +12,22 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
 import com.dongua.interview.act2service.CommunicateActivity;
 import com.dongua.interview.actlaunch.FirstActivity;
 import com.dongua.interview.animate.AnimActivity;
 import com.dongua.interview.eventbus3.EventBusActivity;
 import com.dongua.interview.glvideo.VideoActivity;
+import com.dongua.interview.krpano.PanoActivity;
 import com.dongua.interview.notification.NotificationActivity;
 import com.dongua.interview.touchevent.TouchActivity;
 import com.dongua.interview.webviewlearn.WebViewActivity;
+
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.iv_loadfile)
     ImageView loadImg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -44,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
 
-           int a = Build.VERSION_CODES.O_MR1;
+        int a = Build.VERSION_CODES.O_MR1;
         String[] per = new String[]{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
@@ -53,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 //        Bitmap b2 = BitmapFactory.decodeResource(getResources(),R.drawable.tes2);
 //        Log.i("a", "onCreate: ");
     }
-
 
 
     @Override
@@ -89,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
 
-
     }
 
     @Override
@@ -119,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.btn_touch, R.id.btn_anim, R.id.btn_service
             , R.id.btn_act, R.id.btn_dialog, R.id.btn_eventbus
-            , R.id.btn_notify,R.id.btn_thread,R.id.btn_webview
-            ,R.id.btn_video})
+            , R.id.btn_notify, R.id.btn_thread, R.id.btn_webview
+            , R.id.btn_video, R.id.btn_pano})
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_touch:
@@ -150,8 +153,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_notify:
                 startActivity(NotificationActivity.class);
             case R.id.btn_thread:
-                final ThreadPoolExecutor executor = new ThreadPoolExecutor(30,30,2, TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>());
-                for(int i=0;i<30;i++)
+                final ThreadPoolExecutor executor = new ThreadPoolExecutor(30, 30, 2, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+                for (int i = 0; i < 30; i++)
                     executor.submit(new Runnable() {
                         @Override
                         public void run() {
@@ -162,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(5*1000);
+                            Thread.sleep(5 * 1000);
                             executor.shutdown();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -174,6 +177,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_video:
                 startActivity(VideoActivity.class);
+                break;
+            case R.id.btn_pano:
+                startActivity(PanoActivity.class);
+                break;
             default:
                 break;
         }

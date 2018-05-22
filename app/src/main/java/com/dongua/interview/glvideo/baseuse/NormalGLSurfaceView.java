@@ -36,7 +36,7 @@ public class NormalGLSurfaceView extends GLSurfaceView
 
     @Override
     public void onFrameAvailable(SurfaceTexture surfaceTexture) {
-
+        requestRender();
     }
 
     @Override
