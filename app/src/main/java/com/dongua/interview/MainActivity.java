@@ -20,6 +20,7 @@ import butterknife.Unbinder;
 
 import com.dongua.interview.act2service.CommunicateActivity;
 import com.dongua.interview.actlaunch.FirstActivity;
+import com.dongua.interview.adapter.AdapterActivity;
 import com.dongua.interview.animate.AnimActivity;
 import com.dongua.interview.eventbus3.EventBusActivity;
 import com.dongua.interview.glvideo.VideoActivity;
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({R.id.btn_touch, R.id.btn_anim, R.id.btn_service
             , R.id.btn_act, R.id.btn_dialog, R.id.btn_eventbus
             , R.id.btn_notify, R.id.btn_thread, R.id.btn_webview
-            , R.id.btn_video, R.id.btn_pano})
+            , R.id.btn_video, R.id.btn_pano,R.id.btn_adapter})
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_touch:
@@ -180,6 +181,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_pano:
                 startActivity(PanoActivity.class);
+                break;
+            case R.id.btn_adapter:
+                startActivity(AdapterActivity.class);
                 break;
             default:
                 break;

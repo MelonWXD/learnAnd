@@ -1,32 +1,17 @@
 package com.dongua.interview;
 
-import android.app.ActivityManager;
 import android.app.Application;
-import android.app.Service;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.os.Looper;
-import android.util.ArraySet;
 import android.util.Log;
-import android.util.LruCache;
-import android.util.SparseArray;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.elvishew.xlog.LogConfiguration;
-import com.elvishew.xlog.LogLevel;
 import com.elvishew.xlog.XLog;
-import com.squareup.leakcanary.LeakCanary;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.LogStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.Executors;
-import java.util.logging.Logger;
-
-import dalvik.system.BaseDexClassLoader;
-import dalvik.system.DexClassLoader;
 
 /**
  * author: Lewis
@@ -38,17 +23,18 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        LogConfiguration config = new LogConfiguration.Builder()
-                .tag("WXD")                                         // Specify TAG, default: "X-LOG"
-                .st(1)                                                 // Enable stack trace info with depth 2, disabled by default
-                .b()                                                   // Enable border, disabled by default
+
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                .showThreadInfo(true)  // (Optional) Whether to show thread info or not. Default true
+                .tag("WXD")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
                 .build();
 
-        XLog.init(config);
+
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
 
         appContext = getApplicationContext();
 //        LeakCanary.install(this);
-        Glide.with(this).load("").into(new ImageView(this));
+//        Glide.with(this).load("").into(new ImageView(this));
 
     }
 
@@ -57,4 +43,6 @@ public class App extends Application {
     public static Context getAppContext() {
         return appContext;
     }
+
+
 }
