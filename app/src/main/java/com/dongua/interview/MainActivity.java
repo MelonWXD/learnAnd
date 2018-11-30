@@ -2,6 +2,7 @@ package com.dongua.interview;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -20,7 +21,6 @@ import butterknife.Unbinder;
 
 import com.dongua.interview.act2service.CommunicateActivity;
 import com.dongua.interview.actlaunch.FirstActivity;
-import com.dongua.interview.adapter.AdapterActivity;
 import com.dongua.interview.animate.AnimActivity;
 import com.dongua.interview.eventbus3.EventBusActivity;
 import com.dongua.interview.glvideo.VideoActivity;
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({R.id.btn_touch, R.id.btn_anim, R.id.btn_service
             , R.id.btn_act, R.id.btn_dialog, R.id.btn_eventbus
             , R.id.btn_notify, R.id.btn_thread, R.id.btn_webview
-            , R.id.btn_video, R.id.btn_pano,R.id.btn_adapter})
+            , R.id.btn_video, R.id.btn_pano, R.id.btn_adapter})
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_touch:
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.btn_dialog:
 //                showNormalDialog(this);
-                showNormalDialog(getApplicationContext());
+                showNormalDialog(MainActivity.this);
                 break;
 
             case R.id.btn_eventbus:
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(PanoActivity.class);
                 break;
             case R.id.btn_adapter:
-                startActivity(AdapterActivity.class);
+//                startActivity(AdapterActivity.class);
                 break;
             default:
                 break;
@@ -191,19 +191,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showNormalDialog(Context context) {
-        /* @setIcon 设置对话框图标
-         * @setTitle 设置对话框标题
-         * @setMessage 设置对话框消息提示
-         * setXXX方法返回Dialog对象，因此可以链式设置属性
-         */
-        AlertDialog normalDialog =
-                new AlertDialog.Builder(context)
-                        .setTitle("我是一个普通Dialog")
-                        .setMessage("你要点击哪一个按钮呢?").create();
+        // 创建构建器
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        // 设置参数
+        builder.setTitle("请做出选择")
+                .setMessage("我美不美")
+                .setPositiveButton("美", new DialogInterface.OnClickListener() {// 积极
 
-        // 显示
-        normalDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
-        normalDialog.show();
+                    @Override
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+
+                    }
+                }).setNegativeButton("不美", new DialogInterface.OnClickListener() {// 消极
+
+            @Override
+            public void onClick(DialogInterface dialog,
+                                int which) {
+
+            }
+        }).setNeutralButton("不知道", new DialogInterface.OnClickListener() {// 中间级
+
+            @Override
+            public void onClick(DialogInterface dialog,
+                                int which) {
+
+            }
+        });
+        builder.create().show();
+
     }
 
     private void startActivity(Class clazz) {
