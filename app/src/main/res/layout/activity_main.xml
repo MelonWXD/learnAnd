@@ -78,10 +78,10 @@
             android:layout_height="50dp"
             android:text="krpano" />
         <Button
-            android:id="@+id/btn_adapter"
+            android:id="@+id/btn_livebus"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="适配" />
+            android:text="ACC" />
     </GridLayout>
 
     <ImageView

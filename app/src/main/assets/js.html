@@ -3,14 +3,22 @@
 <head>
     <meta charset="utf-8">
     <title>title</title>
-    <script>
-   function callJS(){
-      alert("Android调用了JS的callJS方法");
-   }
-
+</head>
+<body>
+    <h1> 标题</h1>
+    <p> 段落</p>
+    <button onclick="dir()">跳转</button>
+    <a href="http://www.w3school.com.cn">W3School</a>
+    <script type="text/javascript">
+        function callJS(){
+            alert("Android调用了JS的callJS方法");
+        }
+        function dir(){
+            alert("Android调用了JS的callJS方法2");
+            document.location="www.52shangou.com";
+        }
 
     </script>
-
-</head>
+</body>
 
 </html>

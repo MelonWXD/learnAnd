@@ -2,12 +2,16 @@ package com.dongua.interview.webviewlearn;
 
 import android.content.DialogInterface;
 import android.graphics.drawable.AnimationDrawable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import com.dongua.interview.BaseActivity;
@@ -41,8 +45,21 @@ public class WebViewActivity extends BaseActivity {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        mWebView.loadUrl("file:///android_asset/js.html");
+        mWebView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                XLog.i("shouldOverrideUrlLoading"+request.getUrl());
+                mWebView.loadUrl(request.getUrl().toString());
+                return true;
+            }
 
+            @Nullable
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                XLog.i("shouldInterceptRequest"+request.getUrl());
+                return super.shouldInterceptRequest(view, request);
+            }
+        });
         mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
@@ -62,6 +79,9 @@ public class WebViewActivity extends BaseActivity {
 
         });
 
+        mWebView.loadUrl("file:///android_asset/js.html");
+
+
     }
 
     @OnClick({R.id.btn_calljs})
@@ -72,11 +92,12 @@ public class WebViewActivity extends BaseActivity {
                     @Override
                     public void run() {
 
-                        mWebView.loadUrl("javascript:callJS()");
+                        mWebView.loadUrl("javascript:dir()");
                     }
                 });
 
                 break;
+
 
             default:
                 break;
