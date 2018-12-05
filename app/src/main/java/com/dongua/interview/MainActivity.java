@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -19,12 +20,16 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dongua.interview.act2service.CommunicateActivity;
 import com.dongua.interview.actlaunch.FirstActivity;
 import com.dongua.interview.animate.AnimActivity;
+import com.dongua.interview.bean.OrderInfo;
 import com.dongua.interview.eventbus3.EventBusActivity;
 import com.dongua.interview.glvideo.VideoActivity;
 import com.dongua.interview.krpano.PanoActivity;
+import com.dongua.interview.livecycle.ACCActivity;
 import com.dongua.interview.notification.NotificationActivity;
 import com.dongua.interview.touchevent.TouchActivity;
 import com.dongua.interview.webviewlearn.WebViewActivity;
@@ -54,63 +59,41 @@ public class MainActivity extends AppCompatActivity {
         String[] per = new String[]{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
+        testFastJson();
 //        requestPermissions(per,0);
 //        Bitmap b1 = BitmapFactory.decodeFile("/storage/emulated/0/temp/tes2.png");
 //        Bitmap b2 = BitmapFactory.decodeResource(getResources(),R.drawable.tes2);
 //        Log.i("a", "onCreate: ");
     }
 
+    public void testFastJson() {
+        
+        String jsonStr = "{" +
+                "\"orderId\": \"123\"," +
+                "\"orderName\": \"456\"," +
+                "\"returnCouponInfo\": [{" +
+                "\"couponNo\": \"1\"," +
+                "\"couponName\": \"2\"," +
+                "\"validStartTime\": \"3\"," +
+                "\"validEndTime\": \"4\"," +
+                "\"introduce\": \"5\"" +
+                "}," +
+                "{" +
+                "\"couponNo\": \"11\"," +
+                "\"couponName\": \"22\"," +
+                "\"validStartTime\": \"33\"," +
+                "\"validEndTime\": \"44\"" +
+                "}" +
+                "]" +
+                "}";
+        OrderInfo o = new OrderInfo();
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-
+        String json2 = " {\"orderId\":\"123\"} ";
+        OrderInfo order = JSON.parseObject(jsonStr, OrderInfo.class);
+        Log.i(TAG, "testFastJson: " + order.toString());
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putInt("1", 1);
-
-    }
-
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onDestroy() {
@@ -124,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({R.id.btn_touch, R.id.btn_anim, R.id.btn_service
             , R.id.btn_act, R.id.btn_dialog, R.id.btn_eventbus
             , R.id.btn_notify, R.id.btn_thread, R.id.btn_webview
-            , R.id.btn_video, R.id.btn_pano, R.id.btn_adapter})
+            , R.id.btn_video, R.id.btn_pano, R.id.btn_livebus})
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_touch:
@@ -182,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_pano:
                 startActivity(PanoActivity.class);
                 break;
-            case R.id.btn_adapter:
-//                startActivity(AdapterActivity.class);
+            case R.id.btn_livebus:
+                startActivity(ACCActivity.class);
                 break;
             default:
                 break;

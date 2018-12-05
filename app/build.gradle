@@ -63,5 +63,5 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
 
     implementation 'com.orhanobut:logger:2.2.0'
-
+    compile 'com.alibaba:fastjson:1.1.70.android'
 }
