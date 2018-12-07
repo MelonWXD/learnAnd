@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -34,6 +36,9 @@ import com.dongua.interview.notification.NotificationActivity;
 import com.dongua.interview.touchevent.TouchActivity;
 import com.dongua.interview.webviewlearn.WebViewActivity;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
+import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -48,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.iv_loadfile)
     ImageView loadImg;
 
+    @BindView(R.id.iv1)
+    ImageView srcImg;
+    @BindView(R.id.iv2)
+    ImageView dstImg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -59,7 +69,12 @@ public class MainActivity extends AppCompatActivity {
         String[] per = new String[]{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
-        testFastJson();
+//        testFastJson();
+
+
+//        Bitmap b = createBitmapWithFrame(BitmapFactory.decodeResource(getResources(), R.drawable.happy_32px)
+//                , 150, 150);
+//        dstImg.setImageBitmap(b);
 //        requestPermissions(per,0);
 //        Bitmap b1 = BitmapFactory.decodeFile("/storage/emulated/0/temp/tes2.png");
 //        Bitmap b2 = BitmapFactory.decodeResource(getResources(),R.drawable.tes2);
@@ -67,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testFastJson() {
-        
+
         String jsonStr = "{" +
                 "\"orderId\": \"123\"," +
                 "\"orderName\": \"456\"," +
@@ -209,6 +224,51 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, clazz);
         startActivity(intent);
 
+    }
+
+    public static Bitmap createBitmapWithFrame(Bitmap src, int width, int parting) {
+        //暂时不对src 宽超出打印纸处理 默认为由工具类创建出的bitmap
+        int srcWidth = src.getWidth();
+        int srcHeight = src.getHeight();
+        ByteBuffer buf = ByteBuffer.allocate(src.getByteCount());
+        src.copyPixelsToBuffer(buf);
+        byte[] srcData = buf.array();
+
+        //宽为最宽
+        int retWidth = width;
+        int remain = srcHeight % parting;
+        //整数倍高
+        int retHeight = remain == 0 ? srcHeight : srcHeight + parting - remain;
+        //构造数据集
+        byte[] retData = new byte[retWidth * retHeight * 4]; //ARGB 8888 4个byte1个像素
+        //逐字节拷贝数据
+        int byteWidth = retWidth * 4;
+        for (int h = 0; h < retHeight; h++) {
+            for (int w = 0; w < byteWidth; w++) {
+                int p = h * byteWidth + w; //当前数组位置
+
+                if (w < 40 || w > byteWidth - 40) {//ARGB_8888
+                    retData[p] = (byte) new Random().nextInt(255);
+//                    if (w % 4 == 0)
+//                        retData[p] = (byte) 255;
+//
+//                        //首尾加黑
+//                    else
+//                        retData[p] = (byte) 0;
+                }
+                if (w >= (retWidth - srcWidth) * 4 / 2
+                        && w < (retWidth + srcWidth) * 4 / 2
+                        && h < srcHeight) {
+                    //宽差值 高差值
+                    int dw = w - (retWidth - srcWidth) * 4 / 2;
+                    retData[p] = srcData[h * srcWidth * 4 + dw];
+//                    retData[p] = 1;
+                }
+            }
+        }
+        Bitmap ret = Bitmap.createBitmap(retWidth, retHeight, Bitmap.Config.ARGB_8888);
+        ret.copyPixelsFromBuffer(ByteBuffer.wrap(retData));
+        return ret;
     }
 
 

@@ -56,11 +56,13 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="Notify" />
+
         <Button
             android:id="@+id/btn_thread"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="多线程" />
+
         <Button
             android:id="@+id/btn_webview"
             android:layout_width="wrap_content"
@@ -72,11 +74,13 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="video" />
+
         <Button
             android:id="@+id/btn_pano"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="krpano" />
+
         <Button
             android:id="@+id/btn_livebus"
             android:layout_width="wrap_content"
@@ -88,5 +92,5 @@
         android:id="@+id/iv_loadfile"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_below="@id/gl_op"/>
+        android:layout_below="@id/gl_op" />
 </RelativeLayout>
