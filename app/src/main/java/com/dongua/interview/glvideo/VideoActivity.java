@@ -5,7 +5,7 @@ import android.os.Environment;
 
 import butterknife.BindView;
 
-import com.dongua.interview.BaseActivity;
+import com.example.common.BaseActivity;
 import com.dongua.interview.R;
 import com.dongua.interview.glvideo.baseuse.NormalGLSurfaceView;
 import com.dongua.interview.glvideo.video.VideoGLSurfaceView;

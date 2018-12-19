@@ -29,6 +29,7 @@ import com.dongua.interview.livecycle.AACActivity;
 import com.dongua.interview.notification.NotificationActivity;
 import com.dongua.interview.touchevent.TouchActivity;
 import com.dongua.interview.webviewlearn.WebViewActivity;
+import com.example.scan.ScanActivity;
 
 import java.nio.ByteBuffer;
 import java.util.Random;
@@ -40,12 +41,10 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn_touch)
     Button toucheventBtn;
 
-
     Unbinder unbinder;
 
     @BindView(R.id.iv_loadfile)
     ImageView loadImg;
-
 
 
     @Override
@@ -99,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({R.id.btn_touch, R.id.btn_anim, R.id.btn_service
             , R.id.btn_act, R.id.btn_dialog, R.id.btn_eventbus
             , R.id.btn_notify, R.id.btn_thread, R.id.btn_webview
-            , R.id.btn_video, R.id.btn_pano, R.id.btn_livebus})
+            , R.id.btn_video, R.id.btn_pano, R.id.btn_livebus
+            , R.id.btn_scan})
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_touch:
@@ -159,6 +159,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_livebus:
                 startActivity(AACActivity.class);
+                break;
+            case R.id.btn_scan:
+                startActivity(ScanActivity.class);
                 break;
             default:
                 break;

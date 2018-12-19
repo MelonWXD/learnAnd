@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.dongua.interview.BaseActivity;
+import com.example.common.BaseActivity;
 import com.dongua.interview.R;
 import com.elvishew.xlog.XLog;
 

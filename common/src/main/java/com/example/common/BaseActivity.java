@@ -1,4 +1,4 @@
-package com.dongua.interview;
+package com.example.common;
 
 import android.content.Intent;
 import android.os.Bundle;

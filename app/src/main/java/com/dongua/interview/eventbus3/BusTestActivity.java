@@ -2,7 +2,7 @@ package com.dongua.interview.eventbus3;
 
 import android.app.Fragment;
 
-import com.dongua.interview.BaseActivity;
+import com.example.common.BaseActivity;
 import com.dongua.interview.R;
 import com.elvishew.xlog.XLog;
 

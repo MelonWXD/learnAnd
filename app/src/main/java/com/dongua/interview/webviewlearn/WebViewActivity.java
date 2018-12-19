@@ -14,9 +14,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
-import com.dongua.interview.BaseActivity;
 import com.dongua.interview.R;
 import com.elvishew.xlog.XLog;
+import com.example.common.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;

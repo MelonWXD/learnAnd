@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.dongua.interview.BaseActivity;
+import com.example.common.BaseActivity;
 import com.dongua.interview.R;
 import com.dongua.interview.livecycle.data.BaseEventData;
 import com.dongua.interview.livecycle.viewmodel.StrMsgViewModel;

@@ -7,7 +7,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dongua.interview.BaseActivity;
+import com.example.common.BaseActivity;
 import com.dongua.interview.R;
 import com.elvishew.xlog.XLog;
 

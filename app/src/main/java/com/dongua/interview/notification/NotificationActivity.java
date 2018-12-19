@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.dongua.interview.BaseActivity;
+import com.example.common.BaseActivity;
 import com.dongua.interview.R;
 import com.elvishew.xlog.XLog;
 

@@ -9,7 +9,7 @@ import android.util.Xml;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.dongua.interview.BaseActivity;
+import com.example.common.BaseActivity;
 import com.dongua.interview.R;
 
 import org.w3c.dom.Document;

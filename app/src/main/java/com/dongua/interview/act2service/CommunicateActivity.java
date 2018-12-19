@@ -13,7 +13,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.TextView;
 
-import com.dongua.interview.BaseActivity;
+import com.example.common.BaseActivity;
 import com.dongua.interview.R;
 import com.elvishew.xlog.XLog;
 

@@ -3,7 +3,7 @@ package com.dongua.interview.eventbus3;
 import android.view.View;
 import android.widget.TextView;
 
-import com.dongua.interview.BaseActivity;
+import com.example.common.BaseActivity;
 import com.dongua.interview.R;
 import com.dongua.interview.act2service.CommunicateActivity;
 import com.dongua.interview.actlaunch.FirstActivity;

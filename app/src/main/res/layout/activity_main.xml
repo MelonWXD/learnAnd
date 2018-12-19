@@ -86,6 +86,12 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="ACC" />
+
+        <Button
+            android:id="@+id/btn_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="扫码" />
     </GridLayout>
 
     <ImageView
