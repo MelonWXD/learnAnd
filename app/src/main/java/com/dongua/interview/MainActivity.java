@@ -1,19 +1,14 @@
 package com.dongua.interview;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -23,7 +18,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.dongua.interview.act2service.CommunicateActivity;
 import com.dongua.interview.actlaunch.FirstActivity;
 import com.dongua.interview.animate.AnimActivity;
@@ -31,12 +25,11 @@ import com.dongua.interview.bean.OrderInfo;
 import com.dongua.interview.eventbus3.EventBusActivity;
 import com.dongua.interview.glvideo.VideoActivity;
 import com.dongua.interview.krpano.PanoActivity;
-import com.dongua.interview.livecycle.ACCActivity;
+import com.dongua.interview.livecycle.AACActivity;
 import com.dongua.interview.notification.NotificationActivity;
 import com.dongua.interview.touchevent.TouchActivity;
 import com.dongua.interview.webviewlearn.WebViewActivity;
 
-import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -53,10 +46,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.iv_loadfile)
     ImageView loadImg;
 
-    @BindView(R.id.iv1)
-    ImageView srcImg;
-    @BindView(R.id.iv2)
-    ImageView dstImg;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,20 +55,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
 
-        int a = Build.VERSION_CODES.O_MR1;
-        String[] per = new String[]{
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-        };
-//        testFastJson();
 
-
-//        Bitmap b = createBitmapWithFrame(BitmapFactory.decodeResource(getResources(), R.drawable.happy_32px)
-//                , 150, 150);
-//        dstImg.setImageBitmap(b);
-//        requestPermissions(per,0);
-//        Bitmap b1 = BitmapFactory.decodeFile("/storage/emulated/0/temp/tes2.png");
-//        Bitmap b2 = BitmapFactory.decodeResource(getResources(),R.drawable.tes2);
-//        Log.i("a", "onCreate: ");
     }
 
     public void testFastJson() {
@@ -181,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(PanoActivity.class);
                 break;
             case R.id.btn_livebus:
-                startActivity(ACCActivity.class);
+                startActivity(AACActivity.class);
                 break;
             default:
                 break;

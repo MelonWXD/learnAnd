@@ -39,7 +39,7 @@
         <activity android:name=".webviewlearn.WebViewActivity"/>
         <activity android:name=".glvideo.VideoActivity"/>
         <activity android:name=".krpano.PanoActivity"/>
-        <activity android:name=".livecycle.ACCActivity"/>
+        <activity android:name=".livecycle.AACActivity"/>
         <activity android:name=".bluetooth.BlueToothActivty"/>
         <!--<receiver android:name=".act2service.LocalBroadcastRcv">-->
             <!--<intent-filter>-->
