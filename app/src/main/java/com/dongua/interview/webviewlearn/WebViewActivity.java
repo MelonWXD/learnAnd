@@ -1,11 +1,15 @@
 package com.dongua.interview.webviewlearn;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.http.SslError;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -45,41 +49,51 @@ public class WebViewActivity extends BaseActivity {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        mWebView.setWebViewClient(new WebViewClient(){
+        webSettings.setDomStorageEnabled(true);
+        mWebView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Log.i("wxddd", "shouldOverrideUrlLoading: " + url);
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                XLog.i("shouldOverrideUrlLoading"+request.getUrl());
-                mWebView.loadUrl(request.getUrl().toString());
-                return true;
+//                XLog.i("shouldOverrideUrlLoading"+request.getUrl());
+                Log.i("wxddd", "shouldOverrideUrlLoading: " + request.getUrl());
+//                mWebView.loadUrl(request.getUrl().toString());
+                return super.shouldOverrideUrlLoading(view, request);
             }
 
             @Nullable
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                XLog.i("shouldInterceptRequest"+request.getUrl());
+//                XLog.i("shouldInterceptRequest"+request.getUrl());
+                Log.i("wxddd", "shouldInterceptRequest: " + request.getUrl());
                 return super.shouldInterceptRequest(view, request);
             }
-        });
-        mWebView.setWebChromeClient(new WebChromeClient() {
+
             @Override
-            public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
-                AlertDialog.Builder b = new AlertDialog.Builder(WebViewActivity.this);
-                b.setTitle("Alert");
-                b.setMessage(message);
-                b.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        result.confirm();
-                    }
-                });
-                b.setCancelable(false);
-                b.create().show();
-                return true;
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();
             }
 
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                Log.i("wxddd", "onPageStarted: ");
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                Log.i("wxddd", "onPageFinished: ");
+            }
         });
 
-        mWebView.loadUrl("file:///android_asset/js.html");
+
+        mWebView.loadUrl("https://www.baidu.com");
 
 
     }
@@ -92,7 +106,7 @@ public class WebViewActivity extends BaseActivity {
                     @Override
                     public void run() {
 
-                        mWebView.loadUrl("javascript:dir()");
+                        mWebView.loadUrl("https://www.sina.com.cn/");
                     }
                 });
 
