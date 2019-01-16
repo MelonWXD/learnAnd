@@ -28,6 +28,7 @@ import com.dongua.interview.krpano.PanoActivity;
 import com.dongua.interview.livecycle.AACActivity;
 import com.dongua.interview.notification.NotificationActivity;
 import com.dongua.interview.touchevent.TouchActivity;
+import com.dongua.interview.view.CustomViewActivity;
 import com.dongua.interview.webviewlearn.WebViewActivity;
 import com.example.scan.ScanActivity;
 
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             , R.id.btn_act, R.id.btn_dialog, R.id.btn_eventbus
             , R.id.btn_notify, R.id.btn_thread, R.id.btn_webview
             , R.id.btn_video, R.id.btn_pano, R.id.btn_livebus
-            , R.id.btn_scan})
+            , R.id.btn_scan,R.id.btn_custom_view})
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_touch:
@@ -162,6 +163,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_scan:
                 startActivity(ScanActivity.class);
+                break;   case R.id.btn_custom_view:
+                startActivity(CustomViewActivity.class);
                 break;
             default:
                 break;

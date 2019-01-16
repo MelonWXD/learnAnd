@@ -41,6 +41,7 @@
         <activity android:name=".krpano.PanoActivity"/>
         <activity android:name=".livecycle.AACActivity"/>
         <activity android:name=".bluetooth.BlueToothActivty"/>
+        <activity android:name=".view.CustomViewActivity"/>
         <!--<receiver android:name=".act2service.LocalBroadcastRcv">-->
             <!--<intent-filter>-->
                 <!--<action android:name="myaction"/>-->
