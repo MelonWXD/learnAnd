@@ -55,7 +55,7 @@ public class CustomViewActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
         //去掉滑动边界阴影
         recyclerView.setOverScrollMode(OVER_SCROLL_NEVER);
-        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setNestedScrollingEnabled(true);
         UpDownScrollListener scrollListener = new UpDownScrollListener(true, true);
 //        recyclerView.setOnTouchListener(scrollListener);
 //        recyclerView.setOnFlingListener(new RecyclerView.OnFlingListener() {
