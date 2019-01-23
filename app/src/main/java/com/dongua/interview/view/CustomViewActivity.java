@@ -32,6 +32,7 @@ public class CustomViewActivity extends BaseActivity {
     RecyclerView.Adapter adapter;
     FlexibleAdapterHelper helper;
     ArrayList<String> data;
+    LinearLayoutManager layoutManager;
 
     @Override
     public int getLayoutID() {
@@ -47,115 +48,32 @@ public class CustomViewActivity extends BaseActivity {
             data.add("文本" + i);
         }
         adapter = new TestAdapter();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
         helper = new FlexibleAdapterHelper(recyclerView, adapter);
         recyclerView.setAdapter(adapter);
         //去掉滑动边界阴影
         recyclerView.setOverScrollMode(OVER_SCROLL_NEVER);
-        recyclerView.setOnTouchListener(new UpDownScrollListener(true, true));
+        recyclerView.setNestedScrollingEnabled(false);
+        UpDownScrollListener scrollListener = new UpDownScrollListener(true, true);
+//        recyclerView.setOnTouchListener(scrollListener);
+//        recyclerView.setOnFlingListener(new RecyclerView.OnFlingListener() {
+//            @Override
+//            public boolean onFling(int velocityX, int velocityY) {
+//                recyclerView.scrollBy(0,velocityY>0? 400:-400);
+//                return true;
+//            }
+//        });
+//        OverScrollDecoratorHelpe
 
     }
 
-    private Rect topRect = new Rect();
-    // y方向上当前触摸点的前一次记录位置
-    private int previousY = 0;
-    // y方向上的触摸点的起始记录位置
-    private int startY = 0;
-    // y方向上的触摸点当前记录位置
-    private int currentY = 0;
-    // y方向上两次移动间移动的相对距离
-    private int deltaY = 0;
-
-    private float moveHeight;
-
-    private boolean handleTouch(View v, MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                startY = (int) event.getY();
-                previousY = startY;
-
-                topRect.set(recyclerView.getLeft(), recyclerView.getTop(),
-                        recyclerView.getRight(), recyclerView.getBottom());
-                Log.i("wxddd", "ACTION_DOWN: " + topRect.toShortString());
-                moveHeight = 0;
-                break;
-            case MotionEvent.ACTION_MOVE:
-                currentY = (int) event.getY();
-                deltaY = currentY - previousY;
-                previousY = currentY;
-
-                //判定是否在顶部或者滑到了底部
-                if ((!recyclerView.canScrollVertically(-1) && (currentY - startY) > 0) || (!recyclerView.canScrollVertically(1) && (currentY - startY) < 0)) {
-                    //计算阻尼
-                    float distance = currentY - startY;
-                    if (distance < 0) {
-                        distance *= -1;
-                    }
-
-                    float damping = 0.5f;//阻尼值
-                    float height = recyclerView.getHeight();
-                    if (height != 0) {
-                        if (distance > height) {
-                            damping = 0;
-                        } else {
-                            damping = (height - distance) / height;
-                        }
-                    }
-                    if (currentY - startY < 0) {
-                        damping = 1 - damping;
-                    }
-
-                    //阻力值限制再0.3-0.5之间，平滑过度
-                    damping *= 0.25;
-                    damping += 0.25;
-
-                    moveHeight = moveHeight + (deltaY * damping);
-
-                    recyclerView.layout(topRect.left, (int) (topRect.top + moveHeight), topRect.right,
-                            (int) (topRect.bottom + moveHeight));
-
-
-
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                if (!topRect.isEmpty()) {
-                    //开始回移动画
-                    upDownMoveAnimation();
-                    // 子控件回到初始位置
-                    recyclerView.layout(topRect.left, topRect.top, topRect.right,
-                            topRect.bottom);
-                }
-                //重置一些参数
-                startY = 0;
-                currentY = 0;
-                topRect.setEmpty();
-                break;
-
-        }
-        return false;
-
+    private boolean handleFling(int velocityY) {
+//        recyclerView.viewf
+        return true;
     }
 
-    private void upDownMoveAnimation() {
-        TranslateAnimation animation = new TranslateAnimation(0.0f, 0.0f,
-                recyclerView.getTop(), topRect.top);
-        animation.setDuration(600);
-        animation.setFillAfter(true);
-        //设置阻尼动画效果
-        animation.setInterpolator(new DampInterpolator());
-        recyclerView.setAnimation(animation);
-    }
-
-    public class DampInterpolator implements Interpolator {
-        @Override
-        public float getInterpolation(float input) {
-            //没看过源码，猜测是input是时间（0-1）,返回值应该是进度（0-1）
-            //先快后慢，为了更快更慢的效果，多乘了几次，现在这个效果比较满意
-            return 1 - (1 - input) * (1 - input) * (1 - input) * (1 - input) * (1 - input);
-        }
-    }
 
     class TestAdapter extends RecyclerView.Adapter {
 

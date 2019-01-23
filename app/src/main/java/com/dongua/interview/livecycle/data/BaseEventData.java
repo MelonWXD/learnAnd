@@ -48,7 +48,7 @@ public class BaseEventData extends LiveData<Object> {
      */
     public int getVer() {
         try {
-            return (int) Utils.invokeMethod(LiveData.class, this, "getVersion", null);
+            return (int) Utils.invokeMethod(LiveData.class, this, "getVersion", (Object) null);
 
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();

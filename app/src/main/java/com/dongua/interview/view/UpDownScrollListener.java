@@ -1,6 +1,8 @@
 package com.dongua.interview.view;
 
 import android.graphics.Rect;
+import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -12,7 +14,7 @@ import android.view.animation.TranslateAnimation;
  * @Description: 支持对控件添加回弹效果，对多指操作不做额外处理
  * todo 支持左右滑动  更好的支持双指
  */
-public class UpDownScrollListener implements View.OnTouchListener {
+public class UpDownScrollListener extends RecyclerView.OnFlingListener implements View.OnTouchListener {
 
     public static final float DEFAULT_DAMPING = 1F;
 
@@ -36,8 +38,14 @@ public class UpDownScrollListener implements View.OnTouchListener {
     }
 
     //这里默认只对第一次点击的手指做处理，即getX(0),getY(0)
+
+    boolean overScroll = false;//判断是否过度滑动
+    OverScrollListener overScrollListener = new OverScrollListener();
+    private GestureDetector detector = new GestureDetector(overScrollListener);
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        detector.onTouchEvent(event);//传递点击事件
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (emptyRect == null) {
@@ -95,4 +103,9 @@ public class UpDownScrollListener implements View.OnTouchListener {
         view.setAnimation(animation);
     }
 
+    //吃掉Fling事件 要帮view滑动
+    @Override
+    public boolean onFling(int velocityX, int velocityY) {
+        return false;
+    }
 }
