@@ -17,6 +17,6 @@ public class OverScrollHelper {
     static void setupRecyclerView(RecyclerView view) {
         UpDownScrollListener scrollListener = new UpDownScrollListener(view);
         view.setOnFlingListener(scrollListener);
-        view.setOnTouchListener(scrollListener);
+//        view.setOnTouchListener(scrollListener);
     }
 }

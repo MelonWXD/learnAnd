@@ -9,6 +9,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -28,7 +29,7 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
     public static final int MSG_COUNT_START = 1;
     public static final int MAX_COUNTS = 100;
     public static final int COUNT_DELAY_MS = 20;
-    private static final int DEFAULT_DURATION_MS = 200;//默认的动画时间
+    private static final int DEFAULT_DURATION_MS = 300;//默认的动画时间
     public static final float MAX_TRANS_HEIGHT = 150;//最高回弹距离
 
     //惯性超出相关
@@ -85,7 +86,8 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
                     countTimes++;
                     if (curVelocity < 0 && !targetView.canScrollVertically(-1)
                             || curVelocity > 0 && !targetView.canScrollVertically(1)) {
-                        flingAnimate(calcDistance(curVelocity), DEFAULT_DURATION_MS);
+                        flingAnimate(calcDistance(curVelocity));
+//                        flingAnimate(targetView.getTop(), targetView.getTop() + calcDistance(curVelocity), true);
                         removeCallbacksAndMessages(null);
                         countTimes = 0;
                     } else if (countTimes < MAX_COUNTS) {
@@ -120,6 +122,7 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
 
                     endY = event.getY();
                     //拖得越远 阻尼应该越大
+                    //todo 这里有问题  快速滑动最后一下endY会出错
                     damping = calDamping(endY - startY);
                     int deltaY = (int) ((endY - startY) * damping);
                     v.layout(emptyRect.left,
@@ -132,8 +135,7 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
                 break;
             case MotionEvent.ACTION_UP:
                 if (restore) {
-//                    flingAnimate(0,DEFAULT_DURATION_MS);
-                    restoreAnimation(v, emptyRect);
+                    restoreAnimation(v.getTop(), emptyRect.top);
                     v.layout(emptyRect.left,
                             emptyRect.top,
                             emptyRect.right,
@@ -169,14 +171,12 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
         return x / 50f;
     }
 
-    private void restoreAnimation(View view, Rect rect) {
+    private void restoreAnimation(float fromY, float toY) {
         canFling = false;
-
         TranslateAnimation animation = new TranslateAnimation(
-                0.0f, 0.0f,
-                view.getTop(), rect.top);
+                0f, 0f,
+                fromY, toY);
         animation.setDuration(DEFAULT_DURATION_MS);
-//        animation.setFillAfter(true);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -192,16 +192,16 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
 
             }
         });
-        //恢复的时候应该反过来，用减速插值
-        animation.setInterpolator(decInterpolator);
-        view.setAnimation(animation);
+        animation.setInterpolator(accInterpolator);
+        targetView.startAnimation(animation);
     }
 
-    public void flingAnimate(float height, long duration) {
+
+    public void flingAnimate(float height) {
         ViewPropertyAnimatorCompat compat = ViewCompat
                 .animate(targetView)
                 .translationY(height)
-                .setDuration(duration);
+                .setDuration(DEFAULT_DURATION_MS);
         if (height == 0) {
             compat.setInterpolator(accInterpolator);
             compat.setListener(null);
@@ -210,11 +210,12 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
             compat.setListener(new ViewPropertyAnimatorListener() {
                 @Override
                 public void onAnimationStart(View view) {
+
                 }
 
                 @Override
                 public void onAnimationEnd(View view) {
-                    flingAnimate(0, DEFAULT_DURATION_MS);
+                    flingAnimate(0);
                 }
 
                 @Override
@@ -225,6 +226,5 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
         }
         compat.start();
     }
-
 
 }
