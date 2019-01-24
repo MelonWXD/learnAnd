@@ -41,13 +41,10 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
     //这里默认只对第一次点击的手指做处理，即getX(0),getY(0)
 
     boolean overScroll = false;//判断是否过度滑动
-    OverScrollListener overScrollListener = new OverScrollListener();
-    private GestureDetector detector = new GestureDetector(overScrollListener);
     boolean everChangedDir = false;
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        detector.onTouchEvent(event);//传递点击事件
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (emptyRect == null) {
@@ -93,7 +90,6 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
     }
 
     //根据滑动距离计算阻尼值
-    //有必要改成可配置?
     private float calDamping(float y) {
         float x = (float) Math.sqrt(Math.abs(y));
         return x / 50f;

@@ -44,7 +44,7 @@ public class CustomViewActivity extends BaseActivity {
         super.init();
 
         data = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 3; i++) {
             data.add("文本" + i);
         }
         adapter = new TestAdapter();
@@ -58,14 +58,6 @@ public class CustomViewActivity extends BaseActivity {
         recyclerView.setNestedScrollingEnabled(true);
         UpDownScrollListener scrollListener = new UpDownScrollListener(true, true);
         recyclerView.setOnTouchListener(scrollListener);
-//        recyclerView.setOnFlingListener(new RecyclerView.OnFlingListener() {
-//            @Override
-//            public boolean onFling(int velocityX, int velocityY) {
-//                recyclerView.scrollBy(0,velocityY>0? 400:-400);
-//                return true;
-//            }
-//        });
-//        OverScrollDecoratorHelpe
         recyclerView.setOnFlingListener(new FlingBackListener(recyclerView));
 
     }

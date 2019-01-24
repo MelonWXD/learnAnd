@@ -27,7 +27,7 @@ public class FlingBackListener extends RecyclerView.OnFlingListener {
     public static final float MAX_TRANS_HEIGHT = 200;//最高回弹距离
 
     private int countTimes;
-    private View targetChild; //子view
+    private View targetView; //子view
     private float curVelocity;//当前fling的速度
     private int maxFlingVelocity;//系统最大支持的fling速度
     private int minFlingVelocity;//同上，最小
@@ -40,8 +40,8 @@ public class FlingBackListener extends RecyclerView.OnFlingListener {
             switch (msg.what) {
                 case MSG_COUNT_START:
                     countTimes++;
-                    if (curVelocity < 0 && !targetChild.canScrollVertically(-1)
-                            || curVelocity > 0 && !targetChild.canScrollVertically(1)) {
+                    if (curVelocity < 0 && !targetView.canScrollVertically(-1)
+                            || curVelocity > 0 && !targetView.canScrollVertically(1)) {
                         doAnimate(calcDistance(curVelocity), DEFAULT_DURATION_MS);
                         removeCallbacksAndMessages(null);
                         countTimes = 0;
@@ -61,9 +61,9 @@ public class FlingBackListener extends RecyclerView.OnFlingListener {
         return -Math.signum(velocity) * (v - minFlingVelocity) / maxFlingVelocity * MAX_TRANS_HEIGHT;
     }
 
-    public FlingBackListener(View child) {
-        targetChild = child;
-        init(child.getContext());
+    public FlingBackListener(View view) {
+        targetView = view;
+        init(targetView.getContext());
     }
 
 
@@ -74,7 +74,7 @@ public class FlingBackListener extends RecyclerView.OnFlingListener {
 
     public void doAnimate(float height, long duration) {
         ViewPropertyAnimatorCompat compat = ViewCompat
-                .animate(targetChild)
+                .animate(targetView)
                 .translationY(height)
                 .setDuration(duration);
         if (height == 0) {
