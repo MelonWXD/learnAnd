@@ -2,6 +2,7 @@ package com.dongua.interview.view;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,7 +17,7 @@ import android.view.animation.TranslateAnimation;
  */
 public class UpDownScrollListener extends RecyclerView.OnFlingListener implements View.OnTouchListener {
 
-    public static final float DEFAULT_DAMPING = 1F;
+    public static final float DEFAULT_DAMPING = 2F;
 
     //是否打开上滑 下拉回弹效果
     private boolean upElastic = false;
@@ -42,6 +43,7 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
     boolean overScroll = false;//判断是否过度滑动
     OverScrollListener overScrollListener = new OverScrollListener();
     private GestureDetector detector = new GestureDetector(overScrollListener);
+    boolean everChangedDir = false;
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -55,18 +57,23 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
                 startY = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (!v.canScrollVertically(-1) && downElastic
-                        || !v.canScrollVertically(1) && upElastic) {
+                if (!v.canScrollVertically(-1) && downElastic && event.getY()>startY
+                        || !v.canScrollVertically(1) && upElastic && event.getY()<startY) {
+                    //与startY的绝对值变小 说明变换了方向
+                    if (restore && !everChangedDir) {
+                        everChangedDir = Math.abs(event.getY() - startY) < Math.abs(endY - startY);
+                    }
 
                     endY = event.getY();
                     //拖得越远 阻尼应该越大
                     damping = calDamping(endY - startY);
-                    deltaY = (int) ((endY - startY) / damping + 0.5f);
+                    deltaY = (int) ((endY - startY) * damping);
                     v.layout(emptyRect.left,
                             emptyRect.top + deltaY,
                             emptyRect.right,
                             emptyRect.bottom + deltaY);
                     restore = true;
+                    return everChangedDir;//一旦改变了方向 就吃下move事件
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -78,6 +85,7 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
                             emptyRect.bottom);
                     restore = false;
                     damping = 2f;//恢复默认值
+                    everChangedDir = false;
                 }
                 break;
         }
@@ -86,10 +94,9 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
 
     //根据滑动距离计算阻尼值
     //有必要改成可配置?
-    private float calDamping(float distance) {
-        if (distance < 200)
-            return DEFAULT_DAMPING;
-        return DEFAULT_DAMPING + (distance - 200) / 500;
+    private float calDamping(float y) {
+        float x = (float) Math.sqrt(Math.abs(y));
+        return x / 50f;
     }
 
     private void restoreAnimation(View view, Rect rect) {

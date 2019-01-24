@@ -57,7 +57,7 @@ public class CustomViewActivity extends BaseActivity {
         recyclerView.setOverScrollMode(OVER_SCROLL_NEVER);
         recyclerView.setNestedScrollingEnabled(true);
         UpDownScrollListener scrollListener = new UpDownScrollListener(true, true);
-//        recyclerView.setOnTouchListener(scrollListener);
+        recyclerView.setOnTouchListener(scrollListener);
 //        recyclerView.setOnFlingListener(new RecyclerView.OnFlingListener() {
 //            @Override
 //            public boolean onFling(int velocityX, int velocityY) {
@@ -66,6 +66,7 @@ public class CustomViewActivity extends BaseActivity {
 //            }
 //        });
 //        OverScrollDecoratorHelpe
+        recyclerView.setOnFlingListener(new FlingBackListener(recyclerView));
 
     }
 
