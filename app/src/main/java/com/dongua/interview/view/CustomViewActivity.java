@@ -44,7 +44,7 @@ public class CustomViewActivity extends BaseActivity {
         super.init();
 
         data = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 20; i++) {
             data.add("文本" + i);
         }
         adapter = new TestAdapter();
@@ -55,11 +55,11 @@ public class CustomViewActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
         //去掉滑动边界阴影
         recyclerView.setOverScrollMode(OVER_SCROLL_NEVER);
-        recyclerView.setNestedScrollingEnabled(true);
-        UpDownScrollListener scrollListener = new UpDownScrollListener(true, true);
-        recyclerView.setOnTouchListener(scrollListener);
-        recyclerView.setOnFlingListener(new FlingBackListener(recyclerView));
-
+//        recyclerView.setNestedScrollingEnabled(true);
+//        UpDownScrollListener scrollListener = new UpDownScrollListener(true, true);
+//        recyclerView.setOnTouchListener(scrollListener);
+//        recyclerView.setOnFlingListener(new FlingBackListener(recyclerView));
+        OverScrollHelper.setup(recyclerView);
     }
 
     private boolean handleFling(int velocityY) {
