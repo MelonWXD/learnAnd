@@ -11,11 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.dongua.interview.act2service.CommunicateActivity;
@@ -38,6 +34,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn_touch)
     Button toucheventBtn;
@@ -54,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
-
 
     }
 
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             , R.id.btn_act, R.id.btn_dialog, R.id.btn_eventbus
             , R.id.btn_notify, R.id.btn_thread, R.id.btn_webview
             , R.id.btn_video, R.id.btn_pano, R.id.btn_livebus
-            , R.id.btn_scan,R.id.btn_custom_view})
+            , R.id.btn_scan, R.id.btn_custom_view})
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_touch:
@@ -163,7 +163,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_scan:
                 startActivity(ScanActivity.class);
-                break;   case R.id.btn_custom_view:
+                break;
+            case R.id.btn_custom_view:
                 startActivity(CustomViewActivity.class);
                 break;
             default:

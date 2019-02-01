@@ -123,6 +123,7 @@ public class UpDownScrollListener extends RecyclerView.OnFlingListener implement
                     endY = event.getY();
                     //拖得越远 阻尼应该越大
                     //todo 这里有问题  快速滑动最后一下endY会出错
+                    Log.i("wxddd", String.format("endY=  %s", endY));
                     damping = calDamping(endY - startY);
                     int deltaY = (int) ((endY - startY) * damping);
                     v.layout(emptyRect.left,
