@@ -57,7 +57,7 @@ public class WebViewActivity extends BaseActivity {
 
     private void showPop() {
 // 用于PopupWindow的View
-        View contentView = LayoutInflater.from(this).inflate(R.layout.activity_bugtest, null, false);
+        View contentView = LayoutInflater.from(this).inflate(R.layout.activity_webview, null, false);
         // 创建PopupWindow对象，其中：
         // 第一个参数是用于PopupWindow中的View，第二个参数是PopupWindow的宽度，
         // 第三个参数是PopupWindow的高度，第四个参数指定PopupWindow能否获得焦点
