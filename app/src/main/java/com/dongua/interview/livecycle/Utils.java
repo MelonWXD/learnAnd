@@ -53,9 +53,9 @@ public class Utils {
 
     }
 
-    public static Object invokeReflectMethod(Object obj, String methodName, final Class[] classes)
+    public static Object invokeReflectMethod(Object obj, String methodName, final Object[] classes)
             throws Exception {
-        Method method = getMethod(obj.getClass(), methodName, classes);
+        Method method = getMethod(obj.getClass(), methodName, (Class[]) classes);
         method.setAccessible(true);
         return method.invoke(obj, classes);
     }

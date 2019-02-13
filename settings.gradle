@@ -1,1 +1,1 @@
-include ':app', ':scan', ':common'
+include ':app', ':lib.scan', ':lib.common', ':lib.skin'

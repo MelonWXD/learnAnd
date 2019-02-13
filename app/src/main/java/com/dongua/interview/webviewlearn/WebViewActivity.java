@@ -1,25 +1,26 @@
 package com.dongua.interview.webviewlearn;
 
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.graphics.drawable.AnimationDrawable;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.http.SslError;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
-import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.PopupWindow;
 
 import com.dongua.interview.R;
-import com.elvishew.xlog.XLog;
 import com.example.common.BaseActivity;
 
 import butterknife.BindView;
@@ -42,6 +43,40 @@ public class WebViewActivity extends BaseActivity {
         return R.layout.activity_webview;
     }
 
+    @SuppressLint("HandlerLeak")
+    Handler h = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (window != null)
+                window.dismiss();
+            showPop();
+            h.sendEmptyMessageDelayed(1, 100);
+        }
+    };
+    PopupWindow window;
+
+    private void showPop() {
+// 用于PopupWindow的View
+        View contentView = LayoutInflater.from(this).inflate(R.layout.activity_bugtest, null, false);
+        // 创建PopupWindow对象，其中：
+        // 第一个参数是用于PopupWindow中的View，第二个参数是PopupWindow的宽度，
+        // 第三个参数是PopupWindow的高度，第四个参数指定PopupWindow能否获得焦点
+        window = new PopupWindow(contentView, 1000, 1000, true);
+        // 设置PopupWindow的背景
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        // 设置PopupWindow是否能响应外部点击事件
+        window.setOutsideTouchable(true);
+        // 设置PopupWindow是否能响应点击事件
+        window.setTouchable(true);
+        // 显示PopupWindow，其中：
+        // 第一个参数是PopupWindow的锚点，第二和第三个参数分别是PopupWindow相对锚点的x、y偏移
+        window.showAsDropDown(mWebView, 0, -200);
+        // 或者也可以调用此方法显示PopupWindow，其中：
+        // 第一个参数是PopupWindow的父View，第二个参数是PopupWindow相对父View的位置，
+        // 第三和第四个参数分别是PopupWindow相对父View的x、y偏移
+        // window.showAtLocation(parent, gravity, x, y);
+    }
+
     @Override
     public void init() {
         super.init();
@@ -50,6 +85,7 @@ public class WebViewActivity extends BaseActivity {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setDomStorageEnabled(true);
+        mWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         mWebView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -95,7 +131,7 @@ public class WebViewActivity extends BaseActivity {
 
         mWebView.loadUrl("https://www.baidu.com");
 
-
+        h.sendEmptyMessageDelayed(1, 1000);
     }
 
     @OnClick({R.id.btn_calljs})
