@@ -42,6 +42,7 @@
         <activity android:name=".livecycle.AACActivity"/>
         <activity android:name=".bluetooth.BlueToothActivty"/>
         <activity android:name=".view.CustomViewActivity"/>
+        <activity android:name=".skin.ChangeSkinActivity"/>
         <!--<receiver android:name=".act2service.LocalBroadcastRcv">-->
             <!--<intent-filter>-->
                 <!--<action android:name="myaction"/>-->

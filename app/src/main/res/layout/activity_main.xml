@@ -97,6 +97,11 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="自定义view" />
+        <Button
+            android:id="@+id/btn_skin_change"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="换肤测试" />
     </GridLayout>
 
     <ImageView

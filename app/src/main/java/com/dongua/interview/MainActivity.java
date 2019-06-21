@@ -3,6 +3,7 @@ package com.dongua.interview;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -23,6 +24,7 @@ import com.dongua.interview.glvideo.VideoActivity;
 import com.dongua.interview.krpano.PanoActivity;
 import com.dongua.interview.livecycle.AACActivity;
 import com.dongua.interview.notification.NotificationActivity;
+import com.dongua.interview.skin.ChangeSkinActivity;
 import com.dongua.interview.touchevent.TouchActivity;
 import com.dongua.interview.view.CustomViewActivity;
 import com.dongua.interview.webviewlearn.WebViewActivity;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
+
     }
 
     public void testFastJson() {
@@ -99,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             , R.id.btn_act, R.id.btn_dialog, R.id.btn_eventbus
             , R.id.btn_notify, R.id.btn_thread, R.id.btn_webview
             , R.id.btn_video, R.id.btn_pano, R.id.btn_livebus
-            , R.id.btn_scan, R.id.btn_custom_view})
+            , R.id.btn_scan, R.id.btn_custom_view, R.id.btn_skin_change})
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_touch:
@@ -165,6 +168,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_custom_view:
                 startActivity(CustomViewActivity.class);
+                break;
+            case R.id.btn_skin_change:
+                startActivity(ChangeSkinActivity.class);
                 break;
             default:
                 break;

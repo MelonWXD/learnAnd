@@ -86,14 +86,14 @@ public class NotificationActivity extends BaseActivity {
     public void OnClick(View view) {
         switch (CUR_TYPE) {
             case 0:
-//                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.tes);
+//                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.iv_top_content_bg_red);
 //                Bitmap b2 = handleBitmap(bitmap.copy(Bitmap.Config.ARGB_8888, true));
 //                holdIv.setBackground(new BitmapDrawable(b2));
 //                send/*/*/**/*/*/Replay():/**/
                 addNotification();
                 break;
             case 1:
-                Bitmap bitmap2 = BitmapFactory.decodeFile("/storage/emulated/0/temp/tes.png");
+                Bitmap bitmap2 = BitmapFactory.decodeFile("/storage/emulated/0/temp/iv_top_content_bg_red.pngcontent_bg_red.png");
                 sendNormal(bitmap2);
 //                sendProgress();
                 break;

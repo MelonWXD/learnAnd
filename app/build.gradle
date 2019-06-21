@@ -29,6 +29,7 @@ android {
 dependencies {
     implementation project(':lib.common')
     implementation project(':lib.scan')
+    implementation project(':lib.skin')
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:' + rootProject.supportLibVersion
